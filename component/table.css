@@ -1,0 +1,68 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  /* padding: 20px; */
+}
+
+.table-container {
+  max-width: 800px;
+  margin: auto;
+  overflow: hidden; /* 隐藏水平溢出 */
+  position: relative; 
+}
+.custom-table {
+  /* 一定要加这个属性才能实现自定义布局，否则会按内容自动设置列宽 */
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  overflow: auto;
+  font-size: 18px;
+  text-align: left;
+}
+
+.custom-table thead tr {
+  background-color: #d5d7d7;
+  color: #ffffff;
+  text-align: left;
+  /* 固定表头 */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.custom-table tbody {
+  display: block;
+  height: 500px; /* 设置tbody的高度，根据需要调整 */
+  overflow-y: scroll;
+}
+
+.custom-table thead,
+.custom-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.custom-table th,
+.custom-table td {
+  overflow-x: auto;
+  padding: 12px 15px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.custom-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.custom-table tbody tr:last-of-type {
+  border-bottom: 2px solid #e5e7e7;
+}
+
+
+/* 固定最后一列 */
+.custom-table td:last-child,
+.custom-table th:last-child {
+  position: sticky;
+  right: 0;
+}

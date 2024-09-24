@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>I</title>
+    <link rel="stylesheet" href="component/carousel.css">
+    <link rel="stylesheet" href="component/table.css">
+    <link rel="stylesheet" href="component/pagination.css">
+</head>
+<body>
+
+<div id="carousel-container"></div>
+<div id="table-container"></div>
+
+<ul id="data-list"></ul>
+<div id="pagination-container"></div>
+
+
+<script type="module" >
+import Carousel from './component/carousel.js';
+import TableComponent from './component/table.js';
+import Pagination from './component/pagination.js'
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  //轮播图组件
+    const carouselContainer = document.getElementById('carousel-container');
+    const images = [
+        'asset/apps.png',
+        'asset/clock.png',
+        'asset/heart.png',
+        'asset/search.png',
+        'asset/settings.png',
+    ];
+
+    const change = (index) => {
+      // console.log(index+1)
+    }
+    new Carousel(carouselContainer, images, {showButtons: true, onSlideChange:change});
+
+  //表格组件
+    const container = document.getElementById('table-container');
+    const data = [
+      { 'id': 2, name: 'xxx', age: 30 , gender: '女'},
+      { 'id': 3, name: 'yyy', age: 30 , gender: '女'},
+      { 'id': 4, name: 'zzz', age: 30 , gender: '女'},
+      { 'id': 5, name: 'ccc', age: 30 , gender: '女'},
+    ];
+
+    const keyMap = {
+      'id': 'ID',
+      'name': '姓名',
+      'age': '年龄',
+      'gender': '性别'
+    }
+
+    const options = {
+      showActions: true,
+      columnWidths: { name: '150px', age: '100px' },
+      onView: (rowData, index) => console.log('查看行：', rowData),
+      onEdit: (updatedData, index) => console.log('编辑行：', updatedData),
+      onDelete: (deletedData, index) => console.log('删除行：', deletedData),
+      keyMap: keyMap
+    };
+
+    const tableComponent = new TableComponent(container, data, options);
+    tableComponent.render();
+    
+    //分页组件
+    const dataP = Array.from({ length: 100 }, (_, i) => `Item ${i + 1}`);
+    const pageSize = 10;
+
+    function handlePageChange(currentPage) {
+      console.log(`当前页码为: ${currentPage}`);
+    }
+
+    new Pagination(dataP, pageSize, 'data-list','pagination-container',handlePageChange); //传递容器ID
+});
+</script>
+
+</body>
+</html>

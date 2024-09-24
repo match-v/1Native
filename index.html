@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="component/table.css">
+
+    <link rel="stylesheet" href="component/carousel.css">
+    <link rel="stylesheet" href="component/pagination.css">
+
+    <title>后台系统</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="right">
+        <a href="javascript:void(0);" id="logout">登录</a>
+      </div>
+    </header>
+
+    <div id="container">
+      <div id="left">
+        <div class="navBar" id="navbar">
+          <nav class="nav">
+            <div>
+              <div class="navHead">
+                <ion-icon
+                  name="menu-outline"
+                  class="navToggle"
+                  id="nav-toggle"
+                ></ion-icon>
+                <a href="#" class="navLogo">OneProject</a>
+              </div>
+              <div class="navList">
+                <div class="navLink collapse">
+                  <ion-icon name="folder-outline" class="navIcon"></ion-icon>
+                  <span class="navName">内容管理</span>
+
+                  <ion-icon
+                    name="chevron-down-outline"
+                    class="collapseLink"
+                  ></ion-icon>
+
+                  <ul class="collapseMenu">
+                    <a href="#" class="navLink collapseSublink" data-content="content1">课程信息</a>
+                    <a href="#" class="navLink collapseSublink" data-content="content2">试卷信息</a>
+                  </ul>
+                </div>
+                <a href="#" class="navLink" data-content="content3">
+                  <ion-icon name="pie-chart-outline" class="navIcon"></ion-icon>
+                  <span class="navName">组件</span>
+                </a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div id="contents" class="contents">
+        <div id="content1" class="content">
+          <h2>课程信息</h2>
+          课程类型：<input type="text" id="userInput" placeholder="请输入"></input>
+          <div id="table-container"></div>
+        </div>
+        <div id="content2" class="content">
+            <h2>试卷信息</h2>
+            <p>待续...</p>
+        </div>
+        <div id="content3" class="content active">
+            <h2>组件</h2>
+            <p>轮播图</p>
+            <div>
+              <div id="carousel-container"></div>
+            </div>
+            
+            <p>分页</p>
+            <div>
+              <ul id="data-list"></ul>
+              <div id="pagination-container"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 引入icon -->
+    <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/nav.js"></script>
+    <script src="./js/login.js"></script>
+
+    <script type="module">
+      import TableComponent from './component/table.js';
+
+      import Carousel from './component/carousel.js';
+      import Pagination from './component/pagination.js'
+
+      //使用表格组件
+      const container = document.getElementById('table-container');
+
+      const data = [
+        {"course_id": "course_2898fe7739d32de2372d4e41cf017ba3","course_name": "高一高二配置同样课程","course_system_name": "同步","course_type_name": "非课改","grade_name": "高二,高一,高三","subject_name": "数学", "version_name": "人教版(A版)","semester_name": "选择性必修第一册","status_name": "已上架"},
+        {"course_id": "course_dfc096f47d9578b9c1ddfe0fce739968","course_name": "ywb新课改","course_system_name": "同步","course_type_name": "课改","grade_name": "七年级","subject_name": "数学","version_name": "苏科版","semester_name": "上学期","status_name": "已上架"},
+        {"course_id": "course_de17911f7eba487e16481ba11bcdc173", "course_name": "ywb同步历史","course_system_name": "同步","course_type_name": "课改", "grade_name": "八年级","subject_name": "历史", "version_name": "统编版","semester_name": "上学期","status_name": "已上架"},
+        {"course_id": "course_8422fda60846db8062c47a3074b675a6","course_name": "金旻测试-初中生物同步课","course_system_name": "同步","course_type_name": "课改","grade_name": "七年级","subject_name": "生物","version_name": "苏教版","semester_name": "上学期","status_name": "未上架"},
+        {"course_id": "course_c87e597aa352b1852fa007e5b2821aa4","course_name": "金旻测试-提升a-小初数学","course_system_name": "提升A","course_type_name": "-","grade_name": "四年级","subject_name": "数学","version_name": "苏教版","semester_name": "上学期","status_name": "未上架"},
+        {"course_id": "course_d7da2dbe9c28829d65d51e94f32e187b","course_name": "金旻测试-同步课2","course_system_name": "同步","course_type_name": "非课改","grade_name": "二年级","subject_name": "英语","version_name": "人教新起点版(一起点)","semester_name": "上学期","status_name": "未上架"},
+        {"course_id": "course_55101b8fbcdce480f05c37fb586a08a1","course_name": "金旻测试-同步课","course_system_name": "同步","course_type_name": "课改","grade_name": "六年级","subject_name": "地理","version_name": "鲁教版(五·四学制)","semester_name": "上学期","status_name": "未上架"},
+        {"course_id": "course_c8a5867bf5e13ef0639dc427262e3bd0","course_name": "地理（鲁教版五四）","course_system_name": "同步", "course_type_name": "非课改","grade_name": "六年级","subject_name": "地理", "version_name": "鲁教版(五·四学制)","semester_name": "上学期","status_name": "已上架"},
+        {"course_id": "course_03d88d6f505147a4bf46e7bc3cdc5c5a","course_name": "道德与法治（统编版五四）","course_system_name": "同步","course_type_name": "非课改","grade_name": "六年级","subject_name": "道德与法治","version_name": "统编版(五·四学制)","semester_name": "上学期","status_name": "已上架"},
+        {"course_id": "course_e52ad9b2524757f9f82f8cea43133e21", "course_name": "六年级地理（课改）", "course_system_name": "同步","course_type_name": "课改","grade_name": "六年级","subject_name": "地理","version_name": "鲁教版(五·四学制)","semester_name": "上学期", "status_name": "已上架"}
+      ]
+      const keyMap = {
+        'course_id': '课程ID',
+        'course_name': '课程名称',
+        'course_system_name': '课程体系',
+        'course_type_name': '课程类型',
+        'grade_name': '年级',
+        'subject_name': '学科',
+        'version_name': '版本',
+        'course_type_name': '课程类型',
+        'semester_name': '学期',
+        'status_name': '状态',
+      }
+
+      const options = {
+        showActions: true,
+        columnWidths: { course_id: '200px', course_name: '120px',course_system_name:'120px', grade_name: '120px', course_type_name: '120px',subject_name:'100px',},
+        onView: (rowData, index) => console.log('查看行：', rowData),
+        onEdit: (updatedData, index) => console.log('编辑行：', updatedData),
+        onDelete: (deletedData, index) => console.log('删除行：', deletedData),
+        keyMap: keyMap
+      };
+
+      const tableComponent = new TableComponent(container, data, options);
+      tableComponent.render();
+
+      //获取input
+      const inputElement = document.getElementById("userInput");
+      let userInputValue = ''
+
+      const filterCoursesByType = (val) => {
+        let deepCopy = JSON.parse(JSON.stringify(data))
+        return deepCopy.filter(item => item.course_type_name === val);
+      }
+
+      inputElement.addEventListener("blur", function() {
+        userInputValue = inputElement.value;
+
+        let tableComponent;
+
+        if (userInputValue) {
+          tableComponent = new TableComponent(container, filterCoursesByType(userInputValue), options);
+        } else {
+          tableComponent = new TableComponent(container, data, options);
+        }
+        //重新渲染
+        tableComponent.render();
+      });
+
+
+    //轮播图组件
+    const carouselContainer = document.getElementById('carousel-container');
+    const images = [
+        'asset/apps.png',
+        'asset/clock.png',
+        'asset/heart.png',
+        'asset/search.png',
+        'asset/settings.png',
+    ];
+
+    const change = (index) => {
+      // console.log(index+1)
+    }
+    new Carousel(carouselContainer, images, {showButtons: true, onSlideChange:change});
+
+    //分页组件
+    const dataP = Array.from({ length: 100 }, (_, i) => `Item----------------------------------------------------------------------------------------------------------------- ${i + 1}`);
+    const pageSize = 10;
+
+    function handlePageChange(currentPage) {
+      console.log(`当前页码为: ${currentPage}`);
+    }
+
+    new Pagination(dataP, pageSize, 'data-list','pagination-container',handlePageChange); //传递容器ID
+    </script>
+
+    <style>
+      input{
+        margin: 20px 0;
+        height: 30px;
+      }
+      #content3 p{
+        color: rgb(8, 8, 8);
+        background-color: aqua;
+      }
+    </style>
+  </body>
+</html>
